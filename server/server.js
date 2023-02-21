@@ -12,7 +12,12 @@ var app = express();
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
-var io = socketIO(server);
+var io = socketIO(server, {
+  cors: {
+    origin: process.env.VERCEL_API,
+    methods: ["GET", "POST"],
+  },
+});
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {

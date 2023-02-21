@@ -1,4 +1,9 @@
-var socket = io();
+var socket = io(process.env.VERCEL_API, {
+  withCredentials: true,
+  extraHeaders: {
+    "my-cors-header": "enable"
+  }
+});
 
 // Socket - Connect
 socket.on("connect", function () {
