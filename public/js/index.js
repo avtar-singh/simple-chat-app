@@ -1,8 +1,8 @@
-var socket = io(process.env.VERCEL_API, {
+var socket = io("https://simple-chat-app-eight.vercel.app/", {
   withCredentials: true,
   extraHeaders: {
-    "my-cors-header": "enable"
-  }
+    "my-cors-header": "enable",
+  },
 });
 
 // Socket - Connect
