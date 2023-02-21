@@ -12,14 +12,7 @@ var app = express();
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
-var io = socketIO(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
-  },
-});
+var io = socketIO(server);
 
 
 // LISTEN NEW SOCKET CONNECTION
