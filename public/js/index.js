@@ -1,4 +1,6 @@
-var socket = io();
+var socket = io({
+  withCredentials: true
+});
 
 // Socket - Connect
 socket.on("connect", function () {

@@ -15,6 +15,9 @@ var server = http.createServer(app);
 var io = socketIO(server, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
   },
 });
 
