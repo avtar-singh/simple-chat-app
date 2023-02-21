@@ -14,7 +14,7 @@ var server = http.createServer(app);
 // INIT Input/Output on Server
 var io = socketIO(server, {
   cors: {
-    origin: process.env.VERCEL_API,
+    origin: "https://simple-chat-app-eight.vercel.app",
     methods: ["GET", "POST"],
   },
 });
