@@ -1,4 +1,4 @@
-var socket = io("https://simple-chat-app-eight.vercel.app");
+var socket = io();
 
 // Socket - Connect
 socket.on("connect", function () {

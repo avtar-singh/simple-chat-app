@@ -14,10 +14,10 @@ var server = http.createServer(app);
 // INIT Input/Output on Server
 var io = socketIO(server, {
   cors: {
-    origin: "https://simple-chat-app-eight.vercel.app",
-    methods: ["GET", "POST"],
+    origin: "*",
   },
 });
+
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {
