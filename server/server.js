@@ -4,11 +4,6 @@ const path = require('path');
 const express = require("express");
 // INIT APP
 var app = express();
-// Serve Public Path
-app.use(express.static(publicPath));
-// Parse JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 // INIT SERVER and integrate app
 const http = require("http").createServer(app);
 const socketIO = require('socket.io')(http, {
@@ -19,33 +14,41 @@ const socketIO = require('socket.io')(http, {
 const publicPath = path.join(__dirname, '../public');
 const {generateMessage} = require('./utils/message');
 
-// INIT Input/Output on Server
-var io = socketIO();
-
+// Serve Public Path
+app.use(express.static(publicPath));
+// Parse JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // LISTEN NEW SOCKET CONNECTION
-io.on('connection', (socket) => {
-    console.log("New User connected");
+socketIO.on("connection", (socket) => {
+  console.log("New User connected");
 
-    // NEW USER - WELCOME - OWN Message
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+  // NEW USER - WELCOME - OWN Message
+  socket.emit(
+    "newMessage",
+    generateMessage("Admin", "Welcome to the chat app")
+  );
 
-    // NEW USER - WELCOME - GROUP Message
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User joined'));
+  // NEW USER - WELCOME - GROUP Message
+  socket.broadcast.emit(
+    "newMessage",
+    generateMessage("Admin", "New User joined")
+  );
 
-    // NEW USER - Create Message
-    socket.on("createMessage", (message, cb) => {
-        console.log("New message received:", message);
-        // EMIT MESSAGE
-        io.emit("newMessage", generateMessage(message.from, message.text));
+  // NEW USER - Create Message
+  socket.on("createMessage", (message, cb) => {
+    console.log("New message received:", message);
+    // EMIT MESSAGE
+    io.emit("newMessage", generateMessage(message.from, message.text));
 
-        // Acknowledgement
-        cb('Message recieved successfully');
-    });
+    // Acknowledgement
+    cb("Message recieved successfully");
+  });
 
-    socket.on("disconnect", (reason) => {
-      console.log("Disconnected due to ", reason);
-    });
+  socket.on("disconnect", (reason) => {
+    console.log("Disconnected due to ", reason);
+  });
 });
 
 // Listen Requests
