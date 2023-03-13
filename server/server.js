@@ -11,6 +11,9 @@ const publicPath = path.join(__dirname, '../public');
 const {generateMessage} = require('./utils/message');
 const io = socketIO(http);
 
+http.keepAliveTimeout = 60 * 1000 + 1000;
+http.headersTimeout = 60 * 1000 + 2000;
+
 const port = process.env.PORT || 3000;
 
 // LISTEN NEW SOCKET CONNECTION
