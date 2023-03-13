@@ -51,4 +51,6 @@ io.on("connection", (socket) => {
 app.use(express.static(publicPath));
 
 // Listen Requests
-http.listen(port);
+http.listen(port, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
