@@ -1,15 +1,16 @@
-var socket = io.connect("https://simple-chat-app-eight.vercel.app");
+var socket = io();
 
 // Socket - Connect
 socket.on("connect", function () {
   console.log("Connected to server");
+
 });
 
 // Socket - New Message
 socket.on("newMessage", function (message) {
   console.log("Message recieved from", message);
   // Create new element
-  var li = jQuery("<li></li>");
+  var li = jQuery('<li></li>');
   // Attach message
   li.text(`${message.from} : ${message.text}`);
   // Add new element
@@ -22,7 +23,7 @@ socket.on("disconnect"),
     console.log("Disconnected from server");
   };
 
-jQuery("#message-form").on("submit", function (e) {
+jQuery("#message-form").on('submit', function(e) {
   e.preventDefault();
   socket.emit(
     "createMessage",
@@ -34,4 +35,5 @@ jQuery("#message-form").on("submit", function (e) {
       console.log(data);
     }
   );
+
 });

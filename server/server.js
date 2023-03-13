@@ -8,6 +8,13 @@ const {generateMessage} = require('./utils/message');
 
 // INIT APP
 var app = express();
+
+// Serve Public Path
+app.use(express.static(publicPath));
+// Parse JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
@@ -37,12 +44,6 @@ io.on('connection', (socket) => {
       console.log("Disconnected due to ", reason);
     });
 });
-
-// Serve Public Path
-app.use(express.static(publicPath));
-// Parse JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Listen Requests
 server.listen(process.env.PORT, () => {
