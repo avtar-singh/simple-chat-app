@@ -1,9 +1,4 @@
-const socket = io("https://simple-chat-app-eight.vercel.app", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd",
-  },
-});
+var socket = io.connect("https://simple-chat-app-eight.vercel.app");
 
 // Socket - Connect
 socket.on("connect", function () {

@@ -2,7 +2,6 @@
 require("./config/config");
 const path = require('path');
 const http = require('http');
-const socketIO = require('socket.io');
 const publicPath = path.join(__dirname, '../public');
 const express = require('express');
 const {generateMessage} = require('./utils/message');
@@ -12,13 +11,7 @@ var app = express();
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
-var io = new socketIO.Server(server, {
-  cors: {
-    origin: "https://simple-chat-app-eight.vercel.app",
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
-  },
-});
+var io = require("socket.io")(server);
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {
