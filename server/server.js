@@ -1,28 +1,27 @@
 // IMPORT LIBRARIES
 require("./config/config");
 const path = require('path');
-const http = require('http');
-const publicPath = path.join(__dirname, '../public');
-const express = require('express');
-const {generateMessage} = require('./utils/message');
-
+const express = require("express");
 // INIT APP
 var app = express();
-
 // Serve Public Path
 app.use(express.static(publicPath));
 // Parse JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 // INIT SERVER and integrate app
-var server = http.createServer(app);
-// INIT Input/Output on Server
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-  },
+const http = require("http").createServer(app);
+const socketIO = require('socket.io')(http, {
+    cors: {
+        origin: "*"
+    }
 });
+const publicPath = path.join(__dirname, '../public');
+const {generateMessage} = require('./utils/message');
+
+// INIT Input/Output on Server
+var io = socketIO();
+
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {
@@ -50,6 +49,6 @@ io.on('connection', (socket) => {
 });
 
 // Listen Requests
-server.listen(process.env.PORT, () => {
+http.listen(process.env.PORT || 8080, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
