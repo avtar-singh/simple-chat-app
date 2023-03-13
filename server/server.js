@@ -6,11 +6,7 @@ const express = require("express");
 var app = express();
 // INIT SERVER and integrate app
 const http = require("http").createServer(app);
-const io = require('socket.io')(http, {
-    cors: {
-        origin: "*"
-    }
-});
+const io = require('socket.io');
 const publicPath = path.join(__dirname, '../public');
 const {generateMessage} = require('./utils/message');
 
