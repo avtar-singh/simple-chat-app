@@ -12,8 +12,13 @@ var app = express();
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
-var io = socketIO(server);
-
+var io = new socketIO.Server(server, {
+  cors: {
+    origin: "https://simple-chat-app-eight.vercel.app",
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
+  },
+});
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {
