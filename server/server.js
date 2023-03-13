@@ -18,7 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 // INIT SERVER and integrate app
 var server = http.createServer(app);
 // INIT Input/Output on Server
-var io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 // LISTEN NEW SOCKET CONNECTION
 io.on('connection', (socket) => {
