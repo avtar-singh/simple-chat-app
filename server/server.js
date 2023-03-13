@@ -6,9 +6,12 @@ const express = require("express");
 var app = express();
 // INIT SERVER and integrate app
 const http = require("http").createServer(app);
-const io = require('socket.io');
+const socketIO = require('socket.io');
 const publicPath = path.join(__dirname, '../public');
 const {generateMessage} = require('./utils/message');
+const io = socketIO(http);
+
+const port = process.env.PORT || 3000;
 
 // LISTEN NEW SOCKET CONNECTION
 io.on("connection", (socket) => {
@@ -45,4 +48,4 @@ io.on("connection", (socket) => {
 app.use(express.static(publicPath));
 
 // Listen Requests
-http.listen(process.env.PORT || 3000);
+http.listen(port);
